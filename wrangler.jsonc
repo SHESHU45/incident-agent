@@ -33,7 +33,7 @@
     {
       "binding": "DB",
       "database_name": "incident-db",
-      "database_id": "REPLACE_WITH_D1_DATABASE_ID"
+      "database_id": "a8f8d26d-3932-42b1-8ce8-aa6a89f07f0e"
     }
   ],
   "vectorize": [
