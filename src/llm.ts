@@ -10,12 +10,19 @@ async function runLlm(env: Env, system: string, user: string): Promise<string> {
     ],
     max_tokens: 1024,
     temperature: 0.2,
-  })) as { response?: string };
-  return result.response ?? "";
+  })) as unknown;
+
+  // Workers AI response shape varies by model/runtime; normalize to a string.
+  if (typeof result === "string") return result;
+  const obj = result as { response?: unknown };
+  if (typeof obj.response === "string") return obj.response;
+  if (obj.response != null) return JSON.stringify(obj.response);
+  return JSON.stringify(result);
 }
 
 /** Extract the first JSON object/array from a model response. */
 function extractJson<T>(text: string, fallback: T): T {
+  if (typeof text !== "string") return fallback;
   const match = text.match(/\{[\s\S]*\}|\[[\s\S]*\]/);
   if (!match) return fallback;
   try {
