@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Incident Agent</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>AI Incident / Troubleshooting Agent</h1>
+      <p class="subtitle">
+        Describe a production incident. The agent plans an investigation, queries
+        logs / metrics / deployments, recalls similar past incidents, and returns a
+        root-cause analysis.
+      </p>
+    </header>
+
+    <main>
+      <section class="panel">
+        <form id="incident-form">
+          <label for="title">Title <span class="muted">(optional)</span></label>
+          <input id="title" type="text" placeholder="Payment API 500s" />
+
+          <label for="description">Incident description</label>
+          <textarea
+            id="description"
+            rows="4"
+            placeholder="Our payment API is returning 500 errors. Investigate the issue."
+            required
+          ></textarea>
+
+          <div class="examples">
+            <span class="muted">Try:</span>
+            <button type="button" class="chip">Payment API returning 500 errors</button>
+            <button type="button" class="chip">Auth service latency spiked to 4s</button>
+            <button type="button" class="chip">Checkout pods OOMKilled after deploy</button>
+          </div>
+
+          <button id="submit" type="submit">Investigate</button>
+        </form>
+      </section>
+
+      <section id="result" class="panel hidden">
+        <div class="status-row">
+          <h2 id="incident-title"></h2>
+          <span id="status-badge" class="badge"></span>
+        </div>
+
+        <div class="timeline-block">
+          <h3>Investigation progress</h3>
+          <ul id="timeline"></ul>
+        </div>
+
+        <div id="plan-block" class="block hidden">
+          <h3>Plan</h3>
+          <p id="plan-summary"></p>
+          <ul id="plan-steps"></ul>
+        </div>
+
+        <div id="evidence-block" class="block hidden">
+          <h3>Evidence</h3>
+          <div class="evidence-grid">
+            <div><h4>Logs</h4><pre id="ev-logs"></pre></div>
+            <div><h4>Metrics</h4><pre id="ev-metrics"></pre></div>
+            <div><h4>Deployments</h4><pre id="ev-deploys"></pre></div>
+          </div>
+        </div>
+
+        <div id="similar-block" class="block hidden">
+          <h3>Similar past incidents</h3>
+          <ul id="similar-list"></ul>
+        </div>
+
+        <div id="rca-block" class="block rca hidden">
+          <h3>Root cause analysis</h3>
+          <p><strong>Root cause:</strong> <span id="rca-root"></span></p>
+          <p><strong>Evidence:</strong> <span id="rca-evidence"></span></p>
+          <p><strong>Recommended action:</strong> <span id="rca-action"></span></p>
+          <p><strong>Confidence:</strong> <span id="rca-confidence"></span></p>
+        </div>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

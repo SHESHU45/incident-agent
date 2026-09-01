@@ -1,0 +1,23 @@
+{
+  "name": "incident-agent",
+  "version": "1.0.0",
+  "description": "AI Incident/Troubleshooting Agent on Cloudflare (Agents SDK + Workflows + Durable Objects + Workers AI + D1 + Vectorize)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "cf-typegen": "wrangler types",
+    "db:init": "wrangler d1 execute incident-db --file=./schema.sql --remote",
+    "db:init:local": "wrangler d1 execute incident-db --file=./schema.sql --local"
+  },
+  "dependencies": {
+    "agents": "^0.22.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "wrangler": "^4.42.0",
+    "@cloudflare/workers-types": "^5.20260828.1"
+  }
+}
