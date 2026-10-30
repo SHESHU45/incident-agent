@@ -92,5 +92,6 @@ npm run deploy
 ## Notes
 
 - The diagnostic tools return deterministic mock data so the demo is reproducible
-  and offline-friendly; swap them for real logging/metrics/deploy APIs in production.
+  and offline-friendly
+- Swap them for real logging/metrics/deploy APIs in production.
 - Vectorize recall improves as more incidents are investigated and stored.
